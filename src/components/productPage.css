@@ -1,0 +1,51 @@
+.container {
+    display: flex;
+    flex: 1;
+    margin: 2%;
+    width: 98%;
+    justify-content: center;
+    min-height: 100%;
+}
+.imageContainer {
+    border-radius: 5%;
+    margin: 5%;
+    height: 500px;
+    margin-right: 0%;
+    width: auto;
+    flex: 1;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+.productInfoContainer {
+    padding: 5%;
+    margin: 5%;
+    background-color: mistyrose;
+    width: auto;
+    height: 500px;
+    flex: 1;
+    border-radius: 5%;
+}
+
+.productHeader {
+    font-size: 25px;
+    font-weight: bold;
+    font-family: 'sans-serif';
+}
+.productInfo {
+    font-size: 20px;
+}
+.productPrice {
+    font-size: 50px;
+    color: orangered;
+}
+.addToBasket {
+    font-size: 20px;
+    font-weight: bold;
+    color:coral;
+    background-color: steelblue;
+    width: fit-content;
+    padding: 1%;
+    border-radius: 30%;
+}

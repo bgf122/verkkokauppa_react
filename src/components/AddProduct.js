@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle, MenuItem, List, ListItem } from "@mui/material";
 
 function AddProduct(props) {
+    const [imageFiles, setImageFiles] = useState([])
+    const productPath = 'products'
+    const imagePath = 'images'
     const [product, setProduct] = useState({
         name: '',
         categories: [{ _id: undefined, name: '' }], 
@@ -9,7 +12,11 @@ function AddProduct(props) {
         images: [{ _id: undefined }],
         productDescription: ''
     })
-    const path = 'products'
+
+    const changeHandler = async (event) => {
+		setImageFiles(event.target.files)
+        addImages(event.target.files)
+	}
       
     const handleInputChange = (event) => {
         setProduct({...product, [event.target.name]: event.target.value})
@@ -26,17 +33,65 @@ function AddProduct(props) {
         }
     }
 
-    const addFunction = () => {
-        fetch(props.url+path, {
-            method: 'Post',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(product)
+    const addFunction = async () => {
+        try {
+            console.log(JSON.stringify(product))
+            fetch(props.url+productPath, {
+                method: 'Post',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(product)
+            })
+            .then(res => res.json())
+            .then(data => console.log(data))
+            .catch(err => console.log(err));
+            props.handleEventClose()
+        } catch(err) {
+            console.log(err)
+        } 
+    }
+
+    const clear = () => {
+        setProduct({
+            name: '',
+            categories: [{ _id: undefined, name: '' }], 
+            price: 0,
+            images: [{ _id: undefined }],
+            productDescription: ''
         })
-        .then(res => res.json)
-        .catch(err => console.log(err));
-        props.handleEventClose()
+        setImageFiles([])
+    }
+
+    const addImages = async (images) => {
+        var productImages = []
+        for (let i = 0; i < images.length; i++) {
+
+            let formData = new FormData()
+            formData.append('image', images[i])
+
+            console.log(formData.get('image'))
+            if (i === 0) {
+                productImages.pop()
+                fetch(props.url+imagePath, {
+                    method: 'Post',
+                    body: formData
+                })
+                .then(res => res.json())
+                .then(data => productImages.push({'_id' : data}))
+                .catch(err => console.log(err)); 
+            } else {
+                fetch(props.url+imagePath, {
+                    method: 'Post',
+                    body: formData
+                })
+                .then(res => res.json())
+                .then(data => productImages.push({'_id' : data}))
+                .catch(err => console.log(err)); 
+            }
+            setProduct({...product,  images: productImages })
+            
+        }        
     }
     
     return (
@@ -81,7 +136,8 @@ function AddProduct(props) {
                     name="price"
                     margin="dense"
                     value={product.price}
-                    onChange={handleInputChange}/>
+                    onChange={handleInputChange}
+                    fullWidth/>
                 <TextField
                     id="categorySelect"
                     label="Tuotteen kuvaus"
@@ -90,15 +146,20 @@ function AddProduct(props) {
                     value={product.productDescription}
                     fullWidth
                     onChange={handleInputChange}/>
+                
+                <input
+                    type="file" 
+                    name="file"
+                    multiple
+                    onChange={changeHandler}
+                    />    
+                <List>
+                    {Array.from(imageFiles).map((image, index) => 
+                    <ListItem key={index} value={image}>{image.name}</ListItem>)}
+                </List>          
             </DialogContent>
             <DialogActions>
-                <Button onClick={() => setProduct({
-                    name: '',
-                    categories: [{ _id: undefined, name: '' }], 
-                    price: 0,
-                    images: [{ _id: undefined }],
-                    productDescription: ''
-                })}>
+                <Button onClick={clear}>
                     Tyhjennä
                 </Button>
                 <Button onClick={props.handleEventClose}>
