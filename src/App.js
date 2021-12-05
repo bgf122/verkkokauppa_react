@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ShoppingCart from './components/ShoppingCart';
 import Products from './components/Products';
 import ProductPage from './components/ProductPage'
@@ -8,15 +8,17 @@ import CustomAppBar from './components/CustomAppBar'
 
 
 function App() {
+  const [shoppingCart, setShoppingCart] = useState([])
+
   return (
     <div>
-      <CustomAppBar/>
+      <CustomAppBar shoppingCart={shoppingCart}/>
       <Routes>
-        <Route exact path="/" element={<Home/>} />
-        <Route path="/tuotteet" element={<Products/>} />
-        <Route path="/tuote" element={<ProductPage/>} />
-        <Route path="/ostoskori" element={<ShoppingCart/>} />
-        <Route render={() => <h1>Sivua ei löydy!</h1>} />
+        <Route exact path="/" element={<Home/>}/>
+        <Route path="/tuotteet" element={<Products/>}/>
+        <Route path="/tuote" element={<ProductPage shoppingCart={shoppingCart} setShoppingCart={setShoppingCart}/>}/>
+        <Route path="/ostoskori" element={<ShoppingCart shoppingCart={shoppingCart} setShoppingCart={setShoppingCart}/>} />
+        <Route render={() => <h1>Sivua ei löydy!</h1>}/>
       </Routes>
     </div>
   );

@@ -5,6 +5,7 @@
     width: 98%;
     justify-content: center;
     min-height: 100%;
+    flex-direction: row;
 }
 .imageContainer {
     border-radius: 5%;
@@ -45,7 +46,23 @@
     font-weight: bold;
     color:coral;
     background-color: steelblue;
-    width: fit-content;
-    padding: 1%;
-    border-radius: 30%;
+    padding: 2%;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-right: 3%;
+}
+
+.productOptions {
+    display: flex;
+    flex-direction: row;
+}
+
+.continueShopping {
+    font-size: 20px;
+    font-weight: bold;
+    color:coral;
+    background-color: steelblue;
+    padding: 2%;
+    border-radius: 50%;
+    cursor: pointer;
 }

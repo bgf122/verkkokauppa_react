@@ -1,0 +1,84 @@
+.shoppingCartContainer {
+    display: flex;
+    flex: 1;
+    margin: 2%;
+    width: 98%;
+    justify-content: center;
+    flex-direction: column;
+}
+.productList {
+    flex-direction: row;
+    margin-top: 2%;
+    margin-left: 25%;
+    margin-right: 25%;
+    padding: 1%;
+    background-color: blanchedalmond;
+    border-radius: 10%;
+    overflow: hidden;
+    min-height: 300px;
+}
+.shoppingCartItems {
+    display: flex;
+    flex-direction: row;
+}
+
+.productListFooter {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    margin-top: 1%;
+    margin-left: 25%;
+    margin-right: 25%;
+    padding-right: 5%;
+    padding-left: 5%;
+    text-align: center;
+    justify-content: space-between;
+    font-size: large;
+    font-weight: bold;
+    color: white;
+}
+
+.footerPay {
+    cursor: pointer;
+    background-color: seagreen;
+    border-radius: 50%;
+    padding: 2%;
+
+}
+
+.footerContinue {
+    cursor: pointer;
+    background-color: steelblue;
+    border-radius: 50%;
+    padding: 2%;
+}
+
+.footerEmpty {
+    cursor: pointer;
+    background-color: sandybrown;
+    border-radius: 50%;
+    padding: 2%;
+}
+
+.shoppingCartItemName {
+    flex: 1;
+    font-size: large;
+    font-weight: bold;
+}
+
+.shoppingCartItemDescription {
+    flex: 1;
+}
+
+.shoppingCartItemPrice {
+    flex: 1;
+    color: red;
+    text-align: end;
+}
+
+.sumLine {
+    text-align: end;
+    font-weight: bold;
+    font-size: large;
+    color: red;
+}

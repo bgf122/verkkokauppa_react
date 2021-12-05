@@ -1,10 +1,13 @@
 import React from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import './productPage.css'
 
-function ProductPage() {
+function ProductPage(props) {
     const state = useLocation()
     const product = state.state
+    const shoppingCart = props.shoppingCart
+    const navigate = useNavigate()
+    
     return (
         <div className='container'>
             <div className='imageContainer'>
@@ -20,11 +23,13 @@ function ProductPage() {
                     {product.productDescription}
                 </div>
                 <div className='productPrice'>
-                    <p>{product.price}</p>
+                    <p>{product.price} €</p>
                 </div>
-                <div className='addToBasket'>
-                    <p>Lisää ostoskoriin</p>
+                <div className='productOptions'>
+                    <p className='addToBasket' onClick={() => props.setShoppingCart([...shoppingCart, product])}>Lisää ostoskoriin</p>
+                    <p className='continueShopping' onClick={() => navigate('/tuotteet')}>Jatka ostoksia</p>
                 </div>
+
             </div>
         </div>
     )

@@ -4,11 +4,16 @@ import MenuIcon from '@mui/icons-material/Menu'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import AddProduct from './AddProduct';
 import { useNavigate } from "react-router-dom";
+import './customAppBar.css';
 
-function CustomAppBar() {
+function CustomAppBar(props) {
     const url = "https://verkkokauppa-bgf.herokuapp.com/api/"
     const [eventOpen, setEventOpen] = useState(false)
     const navigate = useNavigate()
+    const [categories, setCategories] = useState([{
+        _id: '',
+        name: ''
+    }])
 
     const handleEventOpen = () => {
         setEventOpen(true);
@@ -22,12 +27,7 @@ function CustomAppBar() {
         fetch(url+'categories')
         .then(response => response.json())
         .then(data => setCategories(data))
-    }, [])
-
-    const [categories, setCategories] = useState([{
-        _id: '',
-        name: ''
-    }])
+    }, [])    
     
     return (
         <div>
@@ -59,7 +59,9 @@ function CustomAppBar() {
                 <IconButton
                     color="inherit"
                     edge="end"
-                    >
+                    onClick={() => navigate('/ostoskori')}
+                    >  
+                        {props.shoppingCart.length ? <p className='shoppingCartIndicator'>{props.shoppingCart.length}</p>: <p/>}
                     <ShoppingCartIcon />
                 </IconButton>
                 </Toolbar>
